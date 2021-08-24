@@ -7,7 +7,15 @@ public class Estoque {
     private List<Produto> produtos = new ArrayList<>();
 
     public void adiciona(Produto produto) {
-        this.produtos.add(produto);
+        if (produtos.contains(produto)) {
+            throw new IllegalArgumentException("Produto já cadastrado!");
+        } else if (produto.getPreco() <= 0){
+            throw new IllegalArgumentException("Preço deve ser maior que zero!");
+        } else if (produto.getQuantidadeEstoque() < 0) {
+            throw new IllegalArgumentException("Quantidade não pode ser negativa!");
+        } else {
+            this.produtos.add(produto);
+        }
     }
 
     public void remove(Produto produto) {

@@ -1,9 +1,16 @@
+import modelo.Estoque;
 import modelo.Produto;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
+
+    static Estoque estoque = new Estoque();
+
     public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
+
         System.out.println("EMPRESA DE IMPORTAÇÃO DE PRODUTOS LTDA - SISTEMA DE CONTROLE DE ESTOQUE");
 
         Scanner entrada = new Scanner(System.in);
@@ -115,7 +122,7 @@ public class Main {
     }
 
     public static void inclusao() {
-        char op = 'N';
+        char op = 'n';
         do {
             Scanner input = new Scanner(System.in);
             System.out.print("##---INCLUSAO DE PRODUTO----##\n");
@@ -125,36 +132,52 @@ public class Main {
 
             System.out.print("Preço: ");
             double preco = input.nextDouble();
-            input.next();
 
             System.out.print("Unidade: ");
+            input.nextLine();
             String unidade = input.nextLine();
 
             System.out.print("Quantidade: ");
             int quantidade = input.nextInt();
 
-            System.out.print("CONFIRMA INCLUSAO? \n(S/N): ");
-            char sn = input.nextLine().charAt(0);
 
-            if (sn == 'S') {
-                Produto produto = new Produto(nome, preco, unidade, quantidade);
-            }
-
+            char sn = 'n';
             do {
-                System.out.print("REPETIR OPERACAO? \n(S/N): ");
-                op = input.nextLine().charAt(0);
-                switch (op) {
-                    case 'S':
+                System.out.print("CONFIRMA INCLUSAO? \n(s/n): ");
+                sn = input.next().charAt(0);
+                switch (sn) {
+                    case 's':
+                        Produto produto = new Produto(nome, preco, unidade, quantidade);
+                        try {
+                            estoque.adiciona(produto);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
                         break;
-                    case 'N':
+                    case 'n':
                         break;
                     default:
                         System.out.println("Opção inválida");
                 }
-            } while (op != 'S' && op != 'N');
+            } while (sn != 's' && sn != 'n');
 
-        } while (op != 'N');
+
+            do {
+                System.out.print("REPETIR OPERACAO? \n(s/n): ");
+                op = input.next().charAt(0);
+                switch (op) {
+                    case 's':
+                        break;
+                    case 'n':
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } while (op != 's' && op != 'n');
+
+        } while (op != 'n');
 
 
     }
+//    public static void
 }
