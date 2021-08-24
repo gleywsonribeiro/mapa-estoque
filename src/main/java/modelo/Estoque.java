@@ -18,6 +18,15 @@ public class Estoque {
         }
     }
 
+    public Produto consulta(Produto produto) {
+       produtos.forEach(p ->{
+           if (p.equals(produto)){
+               //return p;
+           }
+       });
+       return null;
+    }
+
     public void remove(Produto produto) {
         this.produtos.remove(produto);
     }
