@@ -45,7 +45,7 @@ public class Main {
                     System.out.print("\nREAUSTE DE PREÇOS\n");
                     break;
                 case 4:
-                    System.out.println("\nRELATÓRIOS");
+                    relatorio();
                 case 0:
                     break;
                 default:
@@ -328,5 +328,31 @@ public class Main {
             } while (op != 's' && op != 'n');
 
         } while (op == 's');
+    }
+
+    private static void entrada() {
+
+    }
+
+    private static void relatorio() {
+
+        char opcao = 'n';
+        do {
+            estoque.printRelatorio();
+            Scanner input = new Scanner(System.in);
+
+            do {
+                System.out.print("Imprimir novamente?(s/n): ");
+                opcao = input.next().charAt(0);
+                switch (opcao) {
+                    case 's':
+                        break;
+                    case 'n':
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } while (opcao != 's' && opcao != 'n');
+        } while (opcao == 's');
     }
 }

@@ -27,7 +27,7 @@ public class Estoque {
 
     public void atualiza(Produto produto) {
         for (Produto p : produtos) {
-            if(p.equals(produto)) {
+            if (p.equals(produto)) {
                 p.setPreco(produto.getPreco());
                 p.setQuantidadeEstoque(produto.getQuantidadeEstoque());
                 p.setUnidade(produto.getUnidade());
@@ -37,5 +37,14 @@ public class Estoque {
 
     public void remove(Produto produto) {
         this.produtos.remove(produto);
+    }
+
+    public void printRelatorio() {
+
+        System.out.println("|------RELATÓRIO DE PRODUTOS------|");
+        produtos.forEach(produto -> {
+            System.out.println(produto);
+            System.out.println("|---------------------------------|");
+        });
     }
 }
