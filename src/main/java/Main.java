@@ -83,7 +83,7 @@ public class Main {
                     consulta();
                     break;
                 case 4:
-                    System.out.println("Exclusão de produtos");
+                    exclusao();
                     break;
                 case 0:
                     break;
@@ -177,8 +177,6 @@ public class Main {
             } while (op != 's' && op != 'n');
 
         } while (op != 'n');
-
-
     }
 
     private static void alteracao() {
@@ -278,5 +276,57 @@ public class Main {
             } while (op != 's' && op != 'n');
 
         } while (op != 'n');
+    }
+
+    private static void exclusao() {
+        char op = 's';
+
+        do {
+            Scanner entrada = new Scanner(System.in);
+            try {
+                System.out.print("##----EXCLUSÃO DE PRODUTO----##\n");
+                System.out.print("Nome: ");
+                String nome = entrada.nextLine();
+
+                Produto produtoAtualizado = estoque.consulta(nome);
+
+                System.out.println(produtoAtualizado);
+
+
+                char sn = 'n';
+                do {
+                    Scanner input = new Scanner(System.in);
+                    System.out.print("CONFIRMA EXCLUSÃO? \n(s/n): ");
+                    sn = input.next().charAt(0);
+                    switch (sn) {
+                        case 's':
+                            estoque.remove(produtoAtualizado);
+                            System.out.println("Produto removido com sucesso!");
+                            break;
+                        case 'n':
+                            break;
+                        default:
+                            System.out.println("Opção inválida");
+                    }
+                } while (sn != 's' && sn != 'n');
+
+            } catch (NoSuchElementException e) {
+                System.out.println(e.getMessage());
+            }
+
+            do {
+                System.out.print("REPETIR OPERAÇÃO? \n(s/n): ");
+                op = entrada.next().charAt(0);
+                switch (op) {
+                    case 's':
+                        break;
+                    case 'n':
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } while (op != 's' && op != 'n');
+
+        } while (op == 's');
     }
 }
