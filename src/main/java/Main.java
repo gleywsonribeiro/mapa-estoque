@@ -62,11 +62,11 @@ public class Main {
         do {
             System.out.print("##---CADASTRO DE PRODUTOS----##\n");
             System.out.print("|-----------------------------|\n");
-            System.out.print("| 1 - INCLUSAO    |\n");
-            System.out.print("| 2 - ALTERACAO   |\n");
-            System.out.print("| 3 - CONSULTA    |\n");
-            System.out.print("| 4 - EXCLUSAO    |\n");
-            System.out.print("| 0 - RETORNAR    |\n");
+            System.out.print("| 1 - INCLUSÃO                |\n");
+            System.out.print("| 2 - ALTERAÇÃO               |\n");
+            System.out.print("| 3 - CONSULTA                |\n");
+            System.out.print("| 4 - EXCLUSÃO                |\n");
+            System.out.print("| 0 - RETORNAR                |\n");
             System.out.print("|-----------------------------|\n");
             System.out.print("Digite uma opção: ");
 
@@ -97,10 +97,10 @@ public class Main {
         Scanner input = new Scanner(System.in);
         int opcao = 0;
         do {
-            System.out.print("##---MOVIMENTACAO----##\n");
+            System.out.print("##---MOVIMENTAÇÃO----##\n");
             System.out.print("|----------------------|\n");
             System.out.print("| 1 - ENTRADA          |\n");
-            System.out.print("| 2 - SAIDA            |\n");
+            System.out.print("| 2 - SAÍDA            |\n");
             System.out.print("| 0 - RETORNAR         |\n");
             System.out.print("|----------------------|\n");
             System.out.print("Digite uma opção: ");
@@ -126,8 +126,7 @@ public class Main {
         char op = 'n';
         do {
             Scanner input = new Scanner(System.in);
-            System.out.print("##---INCLUSAO DE PRODUTO----##\n");
-
+            System.out.print("##---INCLUSÃO DE PRODUTO----##\n");
             System.out.print("Nome: ");
             String nome = input.nextLine();
 
@@ -144,13 +143,14 @@ public class Main {
 
             char sn = 'n';
             do {
-                System.out.print("CONFIRMA INCLUSAO? \n(s/n): ");
+                System.out.print("CONFIRMA INCLUSÃO? \n(s/n): ");
                 sn = input.next().charAt(0);
                 switch (sn) {
                     case 's':
                         try {
                             Produto produto = new Produto(nome, preco, unidade, quantidade);
                             estoque.adiciona(produto);
+                            System.out.println("Salvo com sucesso!");
                         } catch (IllegalArgumentException e) {
                             System.out.println(e.getMessage());
                         }
@@ -164,7 +164,7 @@ public class Main {
 
 
             do {
-                System.out.print("REPETIR OPERACAO? \n(s/n): ");
+                System.out.print("REPETIR OPERAÇÃO? \n(s/n): ");
                 op = input.next().charAt(0);
                 switch (op) {
                     case 's':
@@ -182,32 +182,33 @@ public class Main {
     }
 
     private static void alteracao() {
-        Scanner input = new Scanner(System.in);
-        char op = 'n';
+        char op = 's';
 
         do {
+            Scanner entrada = new Scanner(System.in);
             try {
                 System.out.print("##----ALTERAÇÃO DE PRODUTO----##\n");
                 System.out.print("Nome: ");
-                String nome = input.nextLine();
+                String nome = entrada.nextLine();
 
                 Produto produtoAtualizado = estoque.consulta(nome);
 
                 System.out.println(produtoAtualizado);
 
                 System.out.print("Preço: ");
-                double preco = input.nextDouble();
+                double preco = entrada.nextDouble();
 
                 System.out.print("Unidade: ");
-                input.nextLine();
-                String unidade = input.nextLine();
+                entrada.nextLine();
+                String unidade = entrada.nextLine();
 
                 System.out.print("Quantidade: ");
-                int quantidade = input.nextInt();
+                int quantidade = entrada.nextInt();
 
                 char sn = 'n';
                 do {
-                    System.out.print("CONFIRMA ALTERACAO? \n(s/n): ");
+                    Scanner input = new Scanner(System.in);
+                    System.out.print("CONFIRMA ALTERAÇÃO? \n(s/n): ");
                     sn = input.next().charAt(0);
                     switch (sn) {
                         case 's':
@@ -215,6 +216,7 @@ public class Main {
                             produtoAtualizado.setUnidade(unidade);
                             produtoAtualizado.setQuantidadeEstoque(quantidade);
                             estoque.atualiza(produtoAtualizado);
+                            System.out.println("Produto atualizado com sucesso!");
                             break;
                         case 'n':
                             break;
@@ -222,8 +224,6 @@ public class Main {
                             System.out.println("Opção inválida");
                     }
                 } while (sn != 's' && sn != 'n');
-
-
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             } catch (NoSuchElementException e) {
@@ -231,8 +231,8 @@ public class Main {
             }
 
             do {
-                System.out.print("REPETIR OPERACAO? \n(s/n): ");
-                op = input.next().charAt(0);
+                System.out.print("REPETIR OPERAÇÃO? \n(s/n): ");
+                op = entrada.next().charAt(0);
                 switch (op) {
                     case 's':
                         break;
@@ -243,16 +243,16 @@ public class Main {
                 }
             } while (op != 's' && op != 'n');
 
-        } while (op != 'n');
+
+        } while (op == 's');
     }
 
     private static void consulta() {
-        Scanner input = new Scanner(System.in);
         char op = 'n';
-
         do {
+            Scanner input = new Scanner(System.in);
             try {
-                System.out.print("##----ALTERAÇÃO DE PRODUTO----##\n");
+                System.out.print("##----CONSULTA DE PRODUTO----##\n");
                 System.out.print("Nome: ");
                 String nome = input.nextLine();
 
@@ -260,43 +260,12 @@ public class Main {
 
                 System.out.println(produtoAtualizado);
 
-                System.out.print("Preço: ");
-                double preco = input.nextDouble();
-
-                System.out.print("Unidade: ");
-                input.nextLine();
-                String unidade = input.nextLine();
-
-                System.out.print("Quantidade: ");
-                int quantidade = input.nextInt();
-
-                char sn = 'n';
-                do {
-                    System.out.print("CONFIRMA ALTERACAO? \n(s/n): ");
-                    sn = input.next().charAt(0);
-                    switch (sn) {
-                        case 's':
-                            produtoAtualizado.setPreco(preco);
-                            produtoAtualizado.setUnidade(unidade);
-                            produtoAtualizado.setQuantidadeEstoque(quantidade);
-                            estoque.atualiza(produtoAtualizado);
-                            break;
-                        case 'n':
-                            break;
-                        default:
-                            System.out.println("Opção inválida");
-                    }
-                } while (sn != 's' && sn != 'n');
-
-
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
             } catch (NoSuchElementException e) {
                 System.out.println(e.getMessage());
             }
 
             do {
-                System.out.print("REPETIR OPERACAO? \n(s/n): ");
+                System.out.print("REPETIR OPERAÇÃO? \n(s/n): ");
                 op = input.next().charAt(0);
                 switch (op) {
                     case 's':
