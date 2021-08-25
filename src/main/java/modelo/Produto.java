@@ -7,10 +7,10 @@ public class Produto {
     private int quantidadeEstoque;
 
     public Produto(String nome, double preco, String unidade, int quantidadeEstoque) {
-        this.nome = nome;
-        this.preco = preco;
-        this.unidade = unidade;
-        this.quantidadeEstoque = quantidadeEstoque;
+        setNome(nome);
+        setPreco(preco);
+        setUnidade(unidade);
+        setQuantidadeEstoque(quantidadeEstoque);
     }
 
     public Produto() {
@@ -29,7 +29,11 @@ public class Produto {
     }
 
     public void setPreco(double preco) {
-        this.preco = preco;
+        if (preco <= 0) {
+            throw new IllegalArgumentException("Preço deve ser maior que zero!");
+        } else {
+            this.preco = preco;
+        }
     }
 
     public String getUnidade() {
@@ -45,7 +49,11 @@ public class Produto {
     }
 
     public void setQuantidadeEstoque(int quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
+        if (quantidadeEstoque < 0) {
+            throw new IllegalArgumentException("Quantidade não pode ser negativa!");
+        } else {
+            this.quantidadeEstoque = quantidadeEstoque;
+        }
     }
 
     @Override
@@ -56,5 +64,13 @@ public class Produto {
         Produto produto = (Produto) o;
 
         return nome.equals(produto.nome);
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + nome +
+                "\nPreco: " + preco +
+                "\nUnidade: " + unidade +
+                "\nQuantidade: " + quantidadeEstoque;
     }
 }

@@ -2,6 +2,7 @@ import modelo.Estoque;
 import modelo.Produto;
 
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
@@ -76,10 +77,10 @@ public class Main {
                     inclusao();
                     break;
                 case 2:
-                    System.out.println("Alteração de Produto");
+                    alteracao();
                     break;
                 case 3:
-                    System.out.println("Consulta de produtos");
+                    consulta();
                     break;
                 case 4:
                     System.out.println("Exclusão de produtos");
@@ -121,7 +122,7 @@ public class Main {
         } while (opcao != 0);
     }
 
-    public static void inclusao() {
+    private static void inclusao() {
         char op = 'n';
         do {
             Scanner input = new Scanner(System.in);
@@ -147,8 +148,8 @@ public class Main {
                 sn = input.next().charAt(0);
                 switch (sn) {
                     case 's':
-                        Produto produto = new Produto(nome, preco, unidade, quantidade);
                         try {
+                            Produto produto = new Produto(nome, preco, unidade, quantidade);
                             estoque.adiciona(produto);
                         } catch (IllegalArgumentException e) {
                             System.out.println(e.getMessage());
@@ -179,5 +180,134 @@ public class Main {
 
 
     }
-//    public static void
+
+    private static void alteracao() {
+        Scanner input = new Scanner(System.in);
+        char op = 'n';
+
+        do {
+            try {
+                System.out.print("##----ALTERAÇÃO DE PRODUTO----##\n");
+                System.out.print("Nome: ");
+                String nome = input.nextLine();
+
+                Produto produtoAtualizado = estoque.consulta(nome);
+
+                System.out.println(produtoAtualizado);
+
+                System.out.print("Preço: ");
+                double preco = input.nextDouble();
+
+                System.out.print("Unidade: ");
+                input.nextLine();
+                String unidade = input.nextLine();
+
+                System.out.print("Quantidade: ");
+                int quantidade = input.nextInt();
+
+                char sn = 'n';
+                do {
+                    System.out.print("CONFIRMA ALTERACAO? \n(s/n): ");
+                    sn = input.next().charAt(0);
+                    switch (sn) {
+                        case 's':
+                            produtoAtualizado.setPreco(preco);
+                            produtoAtualizado.setUnidade(unidade);
+                            produtoAtualizado.setQuantidadeEstoque(quantidade);
+                            estoque.atualiza(produtoAtualizado);
+                            break;
+                        case 'n':
+                            break;
+                        default:
+                            System.out.println("Opção inválida");
+                    }
+                } while (sn != 's' && sn != 'n');
+
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            } catch (NoSuchElementException e) {
+                System.out.println(e.getMessage());
+            }
+
+            do {
+                System.out.print("REPETIR OPERACAO? \n(s/n): ");
+                op = input.next().charAt(0);
+                switch (op) {
+                    case 's':
+                        break;
+                    case 'n':
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } while (op != 's' && op != 'n');
+
+        } while (op != 'n');
+    }
+
+    private static void consulta() {
+        Scanner input = new Scanner(System.in);
+        char op = 'n';
+
+        do {
+            try {
+                System.out.print("##----ALTERAÇÃO DE PRODUTO----##\n");
+                System.out.print("Nome: ");
+                String nome = input.nextLine();
+
+                Produto produtoAtualizado = estoque.consulta(nome);
+
+                System.out.println(produtoAtualizado);
+
+                System.out.print("Preço: ");
+                double preco = input.nextDouble();
+
+                System.out.print("Unidade: ");
+                input.nextLine();
+                String unidade = input.nextLine();
+
+                System.out.print("Quantidade: ");
+                int quantidade = input.nextInt();
+
+                char sn = 'n';
+                do {
+                    System.out.print("CONFIRMA ALTERACAO? \n(s/n): ");
+                    sn = input.next().charAt(0);
+                    switch (sn) {
+                        case 's':
+                            produtoAtualizado.setPreco(preco);
+                            produtoAtualizado.setUnidade(unidade);
+                            produtoAtualizado.setQuantidadeEstoque(quantidade);
+                            estoque.atualiza(produtoAtualizado);
+                            break;
+                        case 'n':
+                            break;
+                        default:
+                            System.out.println("Opção inválida");
+                    }
+                } while (sn != 's' && sn != 'n');
+
+
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            } catch (NoSuchElementException e) {
+                System.out.println(e.getMessage());
+            }
+
+            do {
+                System.out.print("REPETIR OPERACAO? \n(s/n): ");
+                op = input.next().charAt(0);
+                switch (op) {
+                    case 's':
+                        break;
+                    case 'n':
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } while (op != 's' && op != 'n');
+
+        } while (op != 'n');
+    }
 }
