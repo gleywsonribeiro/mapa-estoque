@@ -49,7 +49,7 @@ public class Main {
                 case 0:
                     break;
                 default:
-                    System.out.print("\nOpção Inválida!");
+                    System.out.println("\nOpção Inválida!");
                     break;
             }
         } while (opcao != 0);
@@ -109,10 +109,10 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    System.out.println("Entrada");
+                    entrada();
                     break;
                 case 2:
-                    System.out.println("Saída");
+                    saida();
                     break;
                 case 0:
                     break;
@@ -200,9 +200,6 @@ public class Main {
                 entrada.nextLine();
                 String unidade = entrada.nextLine();
 
-                System.out.print("Quantidade: ");
-                int quantidade = entrada.nextInt();
-
                 char sn = 'n';
                 do {
                     Scanner input = new Scanner(System.in);
@@ -212,7 +209,6 @@ public class Main {
                         case 's':
                             produtoAtualizado.setPreco(preco);
                             produtoAtualizado.setUnidade(unidade);
-                            produtoAtualizado.setQuantidadeEstoque(quantidade);
                             estoque.atualiza(produtoAtualizado);
                             System.out.println("Produto atualizado com sucesso!");
                             break;
@@ -331,11 +327,187 @@ public class Main {
     }
 
     private static void entrada() {
+        char op = 's';
 
+        do {
+            Scanner entrada = new Scanner(System.in);
+            try {
+                System.out.print("##----ENTRADA DE PRODUTO----##\n");
+                System.out.print("Nome: ");
+                String nome = entrada.nextLine();
+
+                Produto produto = estoque.consulta(nome);
+
+                System.out.println(produto);
+
+
+                System.out.print("Entrada (qtd): ");
+                int quantidade = entrada.nextInt();
+                System.out.println("Saldo Final: " + (produto.getQuantidadeEstoque() + quantidade));
+
+                char sn = 'n';
+                do {
+                    Scanner input = new Scanner(System.in);
+                    System.out.print("CONFIRMA MOVIMENTAÇÃO? \n(s/n): ");
+                    sn = input.next().charAt(0);
+                    switch (sn) {
+                        case 's':
+                            produto.entrada(quantidade);
+                            estoque.atualiza(produto);
+                            System.out.println("Movimentação salva om sucesso!");
+                            break;
+                        case 'n':
+                            break;
+                        default:
+                            System.out.println("Opção inválida");
+                    }
+                } while (sn != 's' && sn != 'n');
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            } catch (NoSuchElementException e) {
+                System.out.println(e.getMessage());
+            }
+
+            do {
+                System.out.print("REPETIR OPERAÇÃO? \n(s/n): ");
+                op = entrada.next().charAt(0);
+                switch (op) {
+                    case 's':
+                        break;
+                    case 'n':
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } while (op != 's' && op != 'n');
+
+
+        } while (op == 's');
+    }
+
+    private static void saida() {
+        char op = 's';
+
+        do {
+            Scanner entrada = new Scanner(System.in);
+            try {
+                System.out.print("##----SAÍDA DE PRODUTO----##\n");
+                System.out.print("Nome: ");
+                String nome = entrada.nextLine();
+
+                Produto produto = estoque.consulta(nome);
+
+                System.out.println(produto);
+
+
+                System.out.print("Saída (qtd): ");
+                int quantidade = entrada.nextInt();
+                System.out.println("Saldo Final: " + (produto.getQuantidadeEstoque() - quantidade));
+
+                char sn = 'n';
+                do {
+                    Scanner input = new Scanner(System.in);
+                    System.out.print("CONFIRMA MOVIMENTAÇÃO? \n(s/n): ");
+                    sn = input.next().charAt(0);
+                    switch (sn) {
+                        case 's':
+                            produto.baixa(quantidade);
+                            estoque.atualiza(produto);
+                            System.out.println("Movimentação salva om sucesso!");
+                            break;
+                        case 'n':
+                            break;
+                        default:
+                            System.out.println("Opção inválida");
+                    }
+                } while (sn != 's' && sn != 'n');
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            } catch (NoSuchElementException e) {
+                System.out.println(e.getMessage());
+            }
+
+            do {
+                System.out.print("REPETIR OPERAÇÃO? \n(s/n): ");
+                op = entrada.next().charAt(0);
+                switch (op) {
+                    case 's':
+                        break;
+                    case 'n':
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } while (op != 's' && op != 'n');
+
+
+        } while (op == 's');
+    }
+
+    private static void reajuste() {
+        char op = 's';
+
+        do {
+            Scanner entrada = new Scanner(System.in);
+            try {
+                System.out.print("##----REAJUSTE DE PREÇO----##\n");
+                System.out.print("Produto: ");
+                String nome = entrada.nextLine();
+
+                Produto produto = estoque.consulta(nome);
+
+                System.out.println(produto);
+
+                double taxa;
+                do {
+                    System.out.print("Taxa de Reajuste (Ex: 0-100%): ");
+                    taxa = entrada.nextDouble();
+                    if (taxa > 1 || taxa <= 0) {
+                        System.out.println("Taxa inválida!");
+                    }
+                } while (taxa > 1 || taxa <= 0);
+
+                char sn = 'n';
+                do {
+                    Scanner input = new Scanner(System.in);
+                    System.out.print("CONFIRMA REAJUSTE DE PRECO? \n(s/n): ");
+                    sn = input.next().charAt(0);
+                    switch (sn) {
+                        case 's':
+
+                            estoque.reajuste(taxa);
+                            System.out.println("Reajuste realizado com sucesso!");
+                            break;
+                        case 'n':
+                            break;
+                        default:
+                            System.out.println("Opção inválida");
+                    }
+                } while (sn != 's' && sn != 'n');
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            } catch (NoSuchElementException e) {
+                System.out.println(e.getMessage());
+            }
+
+            do {
+                System.out.print("REPETIR OPERAÇÃO? \n(s/n): ");
+                op = entrada.next().charAt(0);
+                switch (op) {
+                    case 's':
+                        break;
+                    case 'n':
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                }
+            } while (op != 's' && op != 'n');
+
+
+        } while (op == 's');
     }
 
     private static void relatorio() {
-
         char opcao = 'n';
         do {
             estoque.printRelatorio();
@@ -355,4 +527,5 @@ public class Main {
             } while (opcao != 's' && opcao != 'n');
         } while (opcao == 's');
     }
+
 }

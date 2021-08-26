@@ -29,7 +29,6 @@ public class Estoque {
         for (Produto p : produtos) {
             if (p.equals(produto)) {
                 p.setPreco(produto.getPreco());
-                p.setQuantidadeEstoque(produto.getQuantidadeEstoque());
                 p.setUnidade(produto.getUnidade());
             }
         }
@@ -45,6 +44,13 @@ public class Estoque {
         produtos.forEach(produto -> {
             System.out.println(produto);
             System.out.println("|---------------------------------|");
+        });
+    }
+
+    public void reajuste(double taxa) {
+        produtos.forEach(produto -> {
+            double novoValor = produto.getPreco() * (1  + taxa);
+            produto.setPreco(novoValor);
         });
     }
 }

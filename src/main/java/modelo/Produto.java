@@ -56,6 +56,20 @@ public class Produto {
         }
     }
 
+    public void baixa(int quantidade) {
+        if (quantidadeEstoque < quantidade) {
+            throw new IllegalArgumentException("Saldo insuficiente!");
+        }
+        this.quantidadeEstoque -= quantidade;
+    }
+
+    public void entrada(int quantidade) {
+        if (quantidade <= 0) {
+            throw new IllegalArgumentException("Quantidade precisa ser maior que zero!");
+        }
+        this.quantidadeEstoque += quantidade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
