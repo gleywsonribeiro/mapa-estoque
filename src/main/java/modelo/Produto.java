@@ -82,9 +82,11 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "Nome: " + nome +
-                "\nPreco: " + preco +
-                "\nUnidade: " + unidade +
-                "\nQuantidade: " + quantidadeEstoque;
+        StringBuilder builder = new StringBuilder();
+        builder.append("Nome: " + nome);
+        builder.append(String.format("\nPreço: %.2f", preco));
+        builder.append("\nUnidade: " + unidade);
+        builder.append("\nQuantidade: " + quantidadeEstoque);
+        return builder.toString();
     }
 }

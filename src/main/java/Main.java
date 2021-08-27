@@ -42,7 +42,7 @@ public class Main {
                     movimentacao();
                     break;
                 case 3:
-                    System.out.print("\nREAUSTE DE PREÇOS\n");
+                    reajuste();
                     break;
                 case 4:
                     relatorio();
@@ -451,16 +451,10 @@ public class Main {
             Scanner entrada = new Scanner(System.in);
             try {
                 System.out.print("##----REAJUSTE DE PREÇO----##\n");
-                System.out.print("Produto: ");
-                String nome = entrada.nextLine();
-
-                Produto produto = estoque.consulta(nome);
-
-                System.out.println(produto);
 
                 double taxa;
                 do {
-                    System.out.print("Taxa de Reajuste (Ex: 0-100%): ");
+                    System.out.print("Taxa de Reajuste (Ex: 15% = 0.15): ");
                     taxa = entrada.nextDouble();
                     if (taxa > 1 || taxa <= 0) {
                         System.out.println("Taxa inválida!");
@@ -470,11 +464,10 @@ public class Main {
                 char sn = 'n';
                 do {
                     Scanner input = new Scanner(System.in);
-                    System.out.print("CONFIRMA REAJUSTE DE PRECO? \n(s/n): ");
+                    System.out.print("CONFIRMA REAJUSTE DE PRECO de " + (taxa * 100) + "%? \n(s/n): ");
                     sn = input.next().charAt(0);
                     switch (sn) {
                         case 's':
-
                             estoque.reajuste(taxa);
                             System.out.println("Reajuste realizado com sucesso!");
                             break;
