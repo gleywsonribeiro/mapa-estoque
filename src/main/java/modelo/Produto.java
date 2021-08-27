@@ -31,9 +31,9 @@ public class Produto {
     public void setPreco(double preco) {
         if (preco <= 0) {
             throw new IllegalArgumentException("Preço deve ser maior que zero!");
-        } else {
-            this.preco = preco;
         }
+        this.preco = preco;
+
     }
 
     public String getUnidade() {
@@ -51,9 +51,9 @@ public class Produto {
     public void setQuantidadeEstoque(int quantidadeEstoque) {
         if (quantidadeEstoque < 0) {
             throw new IllegalArgumentException("Quantidade não pode ser negativa!");
-        } else {
-            this.quantidadeEstoque = quantidadeEstoque;
         }
+        this.quantidadeEstoque = quantidadeEstoque;
+
     }
 
     public void baixa(int quantidade) {

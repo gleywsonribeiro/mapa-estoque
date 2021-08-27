@@ -454,21 +454,22 @@ public class Main {
 
                 double taxa;
                 do {
-                    System.out.print("Taxa de Reajuste (Ex: 15% = 0.15): ");
+                    System.out.print("Taxa de Reajuste (Ex: 19,5% = 19.5): ");
                     taxa = entrada.nextDouble();
-                    if (taxa > 1 || taxa <= 0) {
-                        System.out.println("Taxa inválida!");
+                    if (taxa > 100 || taxa <= 0) {
+                        System.out.println("Taxa inválida! Faixa: 0% - 100%");
                     }
-                } while (taxa > 1 || taxa <= 0);
+                } while (taxa > 100 || taxa <= 0);
 
                 char sn = 'n';
                 do {
                     Scanner input = new Scanner(System.in);
-                    System.out.print("CONFIRMA REAJUSTE DE PRECO de " + (taxa * 100) + "%? \n(s/n): ");
+                    System.out.print("CONFIRMA REAJUSTE DE PRECO de " + (taxa) + "%? \n(s/n): ");
                     sn = input.next().charAt(0);
                     switch (sn) {
                         case 's':
-                            estoque.reajuste(taxa);
+                            double indice = taxa / 100;
+                            estoque.reajuste(indice);
                             System.out.println("Reajuste realizado com sucesso!");
                             break;
                         case 'n':
